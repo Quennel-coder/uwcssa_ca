@@ -172,10 +172,10 @@ The following people have contributed to the project:
 * [Jinhua Long](https://github.com/lzg187ljh)
 * [ChangkuanGao](https://github.com/gao14o)
 * [Fanyu Zeng](https://github.com/CokeUltraman) [![wakatime](https://wakatime.com/badge/github/CokeUltraman/uwcssa_ca.svg)](https://wakatime.com/badge/github/CokeUltraman/uwcssa_ca)
-* [Heng Wei](https://github.com/theOGcat)
+* [Heng Wei](https://github.com/theOGcat) 
 * [Changye Ma](https://github.com/ChangyeMa) [![wakatime](https://wakatime.com/badge/github/ChangyeMa/uwcssa_ca.svg)](https://wakatime.com/badge/github/ChangyeMa/uwcssa_ca)
 * [Yanhao Wang](https://github.com/DG-xixuan) [![wakatime](https://wakatime.com/badge/github/DG-xixuan/uwcssa_ca.svg)](https://wakatime.com/badge/github/DG-xixuan/uwcssa_ca)
-* [Chengyue Wei](https://github.com/KevinVVei)
+* [Chengyue Wei](https://github.com/KevinVVei) [![wakatime](https://wakatime.com/badge/github/KevinVVei/uwcssa_ca.svg)](https://wakatime.com/badge/github/KevinVVei/uwcssa_ca)
 * [Mike Yu](https://github.com/mikezerone)
 
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
