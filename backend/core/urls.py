@@ -62,6 +62,7 @@ urlpatterns += [
 # loacl app
 urlpatterns += [
     path('news/', include('news.urls')),
+    path('forum/', include('forum.urls')),
 ]
 
 urlpatterns += path(

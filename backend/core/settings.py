@@ -2,12 +2,12 @@ import os
 from datetime import timedelta
 from pathlib import Path
 from dotenv import load_dotenv
+
 load_dotenv()
 # from SECRET import ALLOWED_HOSTS, DATABASES, SECRET_KEY
 
-
-ALLOWED_HOSTS=os.environ.get('ALLOWED_HOSTS')
-SECRET_KEY=os.environ.get('SECRET_KEY')
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS')
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'news',
     'cssamembers',
     'experimentapp',  # 小潘测试用app
+    'forum',
 
     ### rest framework, rest-auth, rest allauth ###
     'rest_framework',
@@ -167,8 +168,8 @@ USE_TZ = True
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
-STATIC_ROOT=os.path.join(BASE_DIR,'staticfiles')
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'), )
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
