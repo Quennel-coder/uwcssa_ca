@@ -52,9 +52,9 @@ AUTH_USER_MODEL = 'users.CustomUser'
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.SessionAuthentication',  # always has session
+        # 'rest_framework.authentication.SessionAuthentication',  # always has session
         'rest_framework_simplejwt.authentication.JWTAuthentication',  # JWT
-        'rest_framework.authentication.TokenAuthentication',
+        # 'rest_framework.authentication.TokenAuthentication',
     ),
     'DEFAULT_PERMISSION_CLASSES':
     ('rest_framework.permissions.IsAuthenticatedOrReadOnly', ),
@@ -169,7 +169,7 @@ REST_AUTH_SERIALIZERS = {
 
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True
 LOGIN_REDIRECT_URL = '/'
-ACCOUNT_EMAIL_VERIFICATION = "mandatory"  # only verified email can login
+# ACCOUNT_EMAIL_VERIFICATION = "mandatory"  # only verified email can login
 
 # allauth
 AUTHENTICATION_BACKENDS = [

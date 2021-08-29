@@ -6,6 +6,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
         fields = (
+            'id',
             'email',
             'username',
             'first_name',
@@ -30,6 +31,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
             'github',
         )
         read_only_fields = (
+            'id',
             'start_date',
             'is_superuser',
             'last_login',

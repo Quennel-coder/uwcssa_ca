@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import axios from "axios";
 import "../components/news_components/newssinglepage/NewsSinglePage.css";
@@ -63,17 +63,94 @@ const NewsSinglePage = ({ isAuthenticated, user }) => {
       </div>
     </div>
   );
+
+  const [singleNewsCommentData, setsingleCommentNewsData] = useState(null);
+  useEffect(() => {
+    axios
+      .get(`http://127.0.0.1:8000/news/articlecommentsingle_list/${article_id}`)
+      .then((response) => {
+        setsingleCommentNewsData(
+          response.data.results.map((newscommentitem, index) => (
+            <Fragment>
+              <div className="newssingle-comments-box">
+                <div className="newssingle-comments-box-head">
+                  {newscommentitem.created_by}| {newscommentitem.created_at}
+                </div>
+                <div className="newssingle-comments-box-content">
+                  {newscommentitem.comment}
+                </div>
+                <div className="newssingle-comments-box-footer">
+                  <button>Reply</button>
+                  <div></div>
+                  <button>Share</button>
+                  <button>Like</button>
+                </div>
+              </div>
+            </Fragment>
+          )),
+        );
+      });
+  }, []);
+
+  const [inputField, setInputField] = useState({
+    comment: "",
+  });
+
+  const inputsHandler = (e) => {
+    setInputField({ [e.target.name]: e.target.value });
+  };
+
+  const config = {
+    headers: {
+      "Content-type": "application/json",
+      Authorization: `JWT ${localStorage.getItem("access")}`,
+      Accept: "application/json",
+    },
+  };
+  const submitButton = () => {
+    // alert(inputField.comment);
+    axios.post(
+      `http://127.0.0.1:8000/news/articlecomment_create/`,
+      {
+        comment: inputField.comment,
+        article_id: article_id,
+        created_by_id: user.id,
+      },
+      config,
+    );
+    window.location.reload();
+  };
+
+  console.log(localStorage.getItem("access"));
+
   return (
     <Fragment>
       <div className="newssingle-main-container">
         {singleNewsData}
         <div className="newssingle-comment">
           {isAuthenticated ? "" : logInBar}
+          <div className="newssingle-comments">
+            <div className="newssingle-comments-header">
+              All comments 53 total number need to be added
+            </div>
+            {singleNewsCommentData}
+          </div>
+          <div className="newssingle-comments-post">
+            <input
+              type="text"
+              name="comment"
+              onChange={inputsHandler}
+              placeholder="comment"
+              value={inputField.comment}
+            />
+            <button onClick={submitButton}>Submit Now</button>
+          </div>
         </div>
       </div>
     </Fragment>
   );
 };
+
 const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
   user: state.auth.user,

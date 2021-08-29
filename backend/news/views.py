@@ -1,5 +1,5 @@
-from news.models import Article, Topic
-from .serializers import TopicSerializer, ArticleSerializer
+from news.models import Article, Topic, ArticleComment
+from .serializers import TopicSerializer, ArticleSerializer, ArticleCommentSerializer
 from rest_framework.permissions import IsAuthenticated, IsAdminUser, IsAuthenticatedOrReadOnly
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView, RetrieveAPIView, ListAPIView, CreateAPIView
 
@@ -19,16 +19,16 @@ class TopicCreateView(CreateAPIView):
     queryset = Topic.objects.all()
 
     def perform_create(self, serializer):
-        serializer.save(created_by=self.request.user)
+        serializer.save(created_by_id=self.request.user)
 
 
 class TopicDetailView(RetrieveAPIView):  # Topic 不能改
-    permission_classes = (IsAuthenticated, )
+    permission_classes = (IsAuthenticatedOrReadOnly, )
     serializer_class = TopicSerializer
     queryset = Topic.objects.all()
 
     def perform_update(self, serializer):
-        serializer.save(created_by=self.request.user)
+        serializer.save(created_by_id=self.request.user)
 
 
 class ArticleListView(ListAPIView):
@@ -43,8 +43,8 @@ class ArticleCreateView(CreateAPIView):
     queryset = Article.objects.all()
 
     def perform_create(self, serializer):
-        serializer.save(created_by=self.request.user,
-                        updated_by=self.request.user)
+        serializer.save(created_by_id=self.request.user,
+                        updated_by_id=self.request.user)
 
 
 class ArticleDetailView(RetrieveUpdateDestroyAPIView):
@@ -53,8 +53,48 @@ class ArticleDetailView(RetrieveUpdateDestroyAPIView):
     queryset = Article.objects.all()
 
     def perform_update(self, serializer):
-        serializer.save(created_by=self.request.user,
-                        updated_by=self.request.user)
+        serializer.save(created_by_id=self.request.user,
+                        updated_by_id=self.request.user)
+
+
+class ArticleCommentListView(ListAPIView):
+    serializer_class = ArticleCommentSerializer
+    queryset = ArticleComment.objects.all()
+    pagination_class = PageNumberPagination
+
+
+class ArticleCommentSingleListView(ListAPIView):
+    serializer_class = ArticleCommentSerializer
+    # queryset = ArticleComment.objects.all()
+    pagination_class = PageNumberPagination
+
+    def get_queryset(self):
+        """
+        This view should return a list of all the purchases for
+        the user as determined by the username portion of the URL.
+        """
+        article_id = self.kwargs['article_id']
+        return ArticleComment.objects.filter(article_id=article_id)
+
+
+class ArticleCommentCreateView(CreateAPIView):
+    permission_classes = (IsAuthenticated, )
+    serializer_class = ArticleCommentSerializer
+    queryset = ArticleComment.objects.all()
+
+    def perform_create(self, serializer):
+        serializer.save(created_by_id=self.request.user,
+                        updated_by_id=self.request.user)
+
+
+class ArticleCommentDetailView(RetrieveUpdateDestroyAPIView):
+    permission_classes = (IsAuthenticatedOrReadOnly, )
+    serializer_class = ArticleCommentSerializer
+    queryset = ArticleComment.objects.all()
+
+    def perform_update(self, serializer):
+        serializer.save(created_by_id=self.request.user,
+                        updated_by_id=self.request.user)
 
 
 # Reference: https://github.com/veryacademy/YT-Django-DRF-Simple-Blog-Series-File-Uploading-Part-8/blob/master/django/blog_api/views.py

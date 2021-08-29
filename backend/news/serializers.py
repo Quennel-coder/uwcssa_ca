@@ -1,22 +1,38 @@
 from rest_framework import serializers
-from news.models import Topic, Article
+from news.models import Topic, Article, ArticleComment
 
 # reference: https://www.jianshu.com/p/de30adb8245e
 
 
 class TopicSerializer(serializers.ModelSerializer):
+    created_by = serializers.ReadOnlyField()
+
     class Meta:
         model = Topic
         fields = '__all__'
         read_only_fields = (
-            'created_at',
-            'created_by',
+            'created_at_id',
+            'created_by_id',
         )
 
 
 class ArticleSerializer(serializers.ModelSerializer):
+    # reference: https://stackoverflow.com/questions/17280007/retrieving-a-foreign-key-value-with-django-rest-framework-serializers
+    created_by = serializers.ReadOnlyField()
+    updated_by = serializers.ReadOnlyField()
+    topic = serializers.ReadOnlyField()
+
     class Meta:
         model = Article
+        fields = '__all__'
+
+
+class ArticleCommentSerializer(serializers.ModelSerializer):
+    created_by = serializers.ReadOnlyField()
+    updated_by = serializers.ReadOnlyField()
+
+    class Meta:
+        model = ArticleComment
         fields = '__all__'
 
 
