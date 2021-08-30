@@ -67,7 +67,9 @@ const NewsSinglePage = ({ isAuthenticated, user }) => {
   const [singleNewsCommentData, setsingleCommentNewsData] = useState(null);
   useEffect(() => {
     axios
-      .get(`http://127.0.0.1:8000/news/articlecommentsingle_list/${article_id}`)
+      .get(
+        `${process.env.REACT_APP_API_URL}/news/articlecommentsingle_list/${article_id}`,
+      )
       .then((response) => {
         setsingleCommentNewsData(
           response.data.results.map((newscommentitem, index) => (
@@ -110,7 +112,7 @@ const NewsSinglePage = ({ isAuthenticated, user }) => {
   const submitButton = () => {
     // alert(inputField.comment);
     axios.post(
-      `http://127.0.0.1:8000/news/articlecomment_create/`,
+      `${process.env.REACT_APP_API_URL}/news/articlecomment_create/`,
       {
         comment: inputField.comment,
         article_id: article_id,
@@ -120,8 +122,6 @@ const NewsSinglePage = ({ isAuthenticated, user }) => {
     );
     window.location.reload();
   };
-
-  console.log(localStorage.getItem("access"));
 
   return (
     <Fragment>

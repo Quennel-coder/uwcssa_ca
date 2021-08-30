@@ -5,26 +5,7 @@ import axios from "axios";
 function HomeTickers() {
   const ref1 = useRef(null);
   const ref2 = useRef(null);
-  // const [newsData, setNewsData] = useState(null);
 
-  // useEffect(() => {
-  //   axios.get("http://127.0.0.1:8000/news/article_list/").then((response) => {
-  //     setNewsData(
-  //       response.data.results.map((itemData, index) => (
-  //         <div className="inner-item-row" key={index}>
-  //           <div className="inner-item-row-img">
-  //             <img src={itemData.image} alt="Sample image" />
-  //           </div>
-  //           <div className="inner-item-row-other">
-  //             <a href="#">{itemData.subject}</a>
-  //             <p>{itemData.content}</p>
-  //           </div>
-  //         </div>
-  //       )),
-  //     );
-  //   });
-  // }, []);
-  const [foodData, setfoodData] = useState(null);
   const options1 = {
     method: "GET",
     url: "https://edamam-food-and-grocery-database.p.rapidapi.com/parser",
@@ -34,10 +15,9 @@ function HomeTickers() {
       "x-rapidapi-key": "99baa41484msh7a0311690b392d5p10e0a7jsn67dbcdd3b4cd",
     },
   };
-
-  axios
-    .request(options1)
-    .then((response) => {
+  const [foodData, setfoodData] = useState(null);
+  useEffect(() => {
+    axios.request(options1).then((response) => {
       setfoodData(
         response.data.hints.map((itemData, index) => (
           <div className="inner-item-row" key={index}>
@@ -51,10 +31,8 @@ function HomeTickers() {
           </div>
         )),
       );
-    })
-    .catch(function (error) {
-      console.error(error);
     });
+  }, []);
 
   const secondOptions = {
     method: "GET",
